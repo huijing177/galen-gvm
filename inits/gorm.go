@@ -5,13 +5,15 @@ import (
 	"galen-gvm/global"
 	"galen-gvm/model/system"
 	"os"
+	"strings"
 
 	"gorm.io/gorm"
 )
 
 // 获取链接 默认是链接mysql
 func Gorm() *gorm.DB {
-	switch global.GVA_CONFIG.System.DbType {
+	dbType := strings.ToLower(global.GVA_CONFIG.System.DbType)
+	switch dbType {
 	case "mysql":
 		return GormMysql()
 	case "pgsql":

@@ -20,6 +20,7 @@ func main() {
 func mainInit() {
 	// 读取配置
 	// 日志
+	global.GVA_LOG = inits.Zap()
 	// DB
 	global.GVA_DB = inits.Gorm()
 

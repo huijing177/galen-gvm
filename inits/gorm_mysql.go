@@ -29,6 +29,7 @@ func GormMysql() *gorm.DB {
 	})
 	if err != nil {
 		fmt.Println("TODO,可能是第一次没有链接信息,所以这里先不处理")
+		global.GVA_LOG.Warn("TODO,可能是第一次没有链接信息,所以这里先不处理")
 		return nil
 	}
 	db.InstanceSet("gorm:table_options", "ENGINE="+c.Engine)
