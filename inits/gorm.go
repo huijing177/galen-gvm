@@ -1,7 +1,10 @@
 package inits
 
 import (
+	"fmt"
 	"galen-gvm/global"
+	"galen-gvm/model/system"
+	"os"
 
 	"gorm.io/gorm"
 )
@@ -16,4 +19,19 @@ func Gorm() *gorm.DB {
 	default:
 		return GormMysql()
 	}
+}
+
+// 在数据库中创建表
+func RegisterTables() {
+	db := global.GVA_DB
+
+	err := db.AutoMigrate(
+		system.SysApi{},
+	)
+	if err != nil {
+		fmt.Println("TODO")
+		os.Exit(0)
+	}
+	fmt.Println("register table success")
+
 }

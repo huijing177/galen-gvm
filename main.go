@@ -1,16 +1,20 @@
 package main
 
 import (
-	"fmt"
 	"galen-gvm/global"
 	"galen-gvm/inits"
+	"time"
 
 	_ "go.uber.org/automaxprocs"
 )
 
 func main() {
 	mainInit()
-	fmt.Println("begin")
+	if global.GVA_DB != nil {
+		db, _ := global.GVA_DB.DB()
+		defer db.Close()
+	}
+	time.Sleep(time.Second * 10)
 }
 
 func mainInit() {
@@ -18,4 +22,8 @@ func mainInit() {
 	// 日志
 	// DB
 	global.GVA_DB = inits.Gorm()
+
+	if global.GVA_DB != nil {
+		inits.RegisterTables()
+	}
 }
