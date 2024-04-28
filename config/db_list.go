@@ -8,7 +8,7 @@ type GeneralDB struct {
 	Dbname       string `mapstructure:"db-name" json:"db-name" yaml:"db-name"`                      // 数据库名
 	Username     string `mapstructure:"username" json:"username" yaml:"username"`                   // 数据库密码
 	Password     string `mapstructure:"password" json:"password" yaml:"password"`                   // 数据库密码
-	Prefix       string `json:"prefix" yaml:"prefix"`                                               // 表名前缀
+	Prefix       string `mapstructure:"prefix" json:"prefix" yaml:"prefix"`                         // 表名前缀
 	Engine       string `mapstructure:"engine" json:"engine" yaml:"engine" default:"InnoDB"`        //数据库引擎，默认InnoDB
 	LogMode      string `mapstructure:"log-mode" json:"log-mode" yaml:"log-mode"`                   // 是否开启Gorm全局日志
 	MaxIdleConns int    `mapstructure:"max-idle-conns" json:"max-idle-conns" yaml:"max-idle-conns"` // 空闲中的最大连接数

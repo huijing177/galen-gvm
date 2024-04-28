@@ -12,3 +12,10 @@ type GVA_MODEL struct {
 	UpdatedAt time.Time      // 更新时间
 	DeletedAt gorm.DeletedAt `gorm:"index" json:"-"` // 删除时间
 }
+
+const (
+	ConfigEnv         = "GVA_CONFIG"
+	ConfigDefaultFile = "config.yaml"
+	ConfigReleaseFile = ""
+	ConfigTestFile    = ""
+)
