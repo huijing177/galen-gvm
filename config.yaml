@@ -1,7 +1,7 @@
 zap:
   level: info
   format: console
-  prefix: "[github.com/flipped-aurora/gin-vue-admin/server]"
+  prefix: "[galen-gvm]"
   director: log
   show-line: true
   encode-level: LowercaseColorLevelEncoder
@@ -26,7 +26,7 @@ system:
 
 # mysql connect configuration
 mysql:
-  path: ""
+  addr: ""
   port: ""
   config: ""
   db-name: ""
@@ -39,7 +39,7 @@ mysql:
 
 # pgsql connect configuration
 pgsql:
-  path: ""
+  addr: ""
   port: ""
   config: ""
   db-name: ""

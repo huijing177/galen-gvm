@@ -7,3 +7,9 @@
 oss部分也只支持aliyun和aws
 
 [参考链接](https://github.com/flipped-aurora/gin-vue-admin)
+
+
+## 已完成功能列表
+- 使用`viper`+`mapstructure`读取配置文件，并能实时更新配置
+- 使用`gorm`链接数据库
+- 使用`zap`构建日志模块

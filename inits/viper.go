@@ -47,7 +47,6 @@ func Viper() *viper.Viper {
 		panic(fmt.Errorf("fatal error config file: %s \n", err))
 	}
 
-	fmt.Println(v.Get("system"))
 	v.WatchConfig()
 
 	v.OnConfigChange(func(e fsnotify.Event) {
