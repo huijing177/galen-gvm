@@ -1,7 +1,14 @@
 package internal
 
-import "time"
+import (
+	"fmt"
+	"galen-gvm/api"
+	"galen-gvm/global"
+)
 
 func Run() {
-	time.Sleep(time.Second * 10)
+	router := api.Router()
+	address := fmt.Sprintf(":%d", global.GVA_CONFIG.System.Addr)
+
+	global.GVA_LOG.Error(router.Run(address).Error())
 }

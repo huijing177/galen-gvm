@@ -20,18 +20,18 @@ system:
   # IP限制次数 一个小时15000次
   iplimit-count: 15000
   #  IP限制一个小时
-  iplimit_time: 3600
+  iplimit-time: 3600
   #  路由全局前缀
   router-prefix: ""
 
 # mysql connect configuration
 mysql:
-  addr: ""
-  port: ""
-  config: ""
-  db-name: ""
-  username: ""
-  password: ""
+  addr: localhost
+  port: 3306
+  config: "charset=utf8mb4&parseTime=True&loc=Local"
+  db-name: "galen_gvm"
+  username: "root"
+  password: "123456"
   max-idle-conns: 10
   max-open-conns: 100
   log-mode: ""

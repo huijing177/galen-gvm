@@ -1,7 +1,7 @@
 package config
 
 type Pgsql struct {
-	GeneralDB `yaml:",inline"`
+	GeneralDB `yaml:",inline" mapstructure:",squash"`
 }
 
 // Dsn 基于配置文件获取 dsn
