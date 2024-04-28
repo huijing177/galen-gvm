@@ -3,6 +3,7 @@ package global
 import (
 	"galen-gvm/config"
 
+	"github.com/redis/go-redis/v9"
 	"github.com/spf13/viper"
 	"go.uber.org/zap"
 	"gorm.io/gorm"
@@ -13,4 +14,5 @@ var (
 	GVA_CONFIG config.Server
 	GVA_LOG    *zap.Logger
 	GVA_VP     *viper.Viper
+	GVA_REDIS  *redis.Client
 )

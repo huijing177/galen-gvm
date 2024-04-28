@@ -24,6 +24,10 @@ func mainInit() {
 	global.GVA_LOG = inits.Zap()
 	// DB
 	global.GVA_DB = inits.Gorm()
+	// redis
+	if global.GVA_CONFIG.System.UseRedis {
+		global.GVA_REDIS = inits.Redis()
+	}
 
 	if global.GVA_DB != nil {
 		inits.RegisterTables()
