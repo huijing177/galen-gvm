@@ -29,6 +29,7 @@ func RegisterTables() {
 
 	err := db.AutoMigrate(
 		system.SysApi{},
+		system.JwtBlacklist{},
 	)
 	if err != nil {
 		fmt.Println("TODO")

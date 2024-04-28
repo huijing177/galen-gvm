@@ -3,7 +3,7 @@ package main
 import (
 	"galen-gvm/global"
 	"galen-gvm/inits"
-	"time"
+	"galen-gvm/internal"
 
 	_ "go.uber.org/automaxprocs"
 )
@@ -14,7 +14,7 @@ func main() {
 		db, _ := global.GVA_DB.DB()
 		defer db.Close()
 	}
-	time.Sleep(time.Second * 10)
+	internal.Run()
 }
 
 func mainInit() {
@@ -28,8 +28,11 @@ func mainInit() {
 	if global.GVA_CONFIG.System.UseRedis {
 		global.GVA_REDIS = inits.Redis()
 	}
+	// cache
+	global.BlackCache = inits.Cache()
 
 	if global.GVA_DB != nil {
 		inits.RegisterTables()
+		inits.LoadAllJwtBlackList2Cache()
 	}
 }
