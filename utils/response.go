@@ -17,7 +17,7 @@ type Response struct {
 	Data interface{} `json:"data"`
 }
 
-func HttpResult(code int, data interface{}, msg string, c *gin.Context) {
+func httpResult(code int, data interface{}, msg string, c *gin.Context) {
 	c.JSON(http.StatusOK, Response{
 		Code: code,
 		Msg:  msg,
@@ -36,9 +36,9 @@ func NoAuth(message string, c *gin.Context) {
 // 对httpresult方法进行封装，将code隐藏
 
 func HTTPOk(data interface{}, msg string, c *gin.Context) {
-	HttpResult(_SUCCESS, data, msg, c)
+	httpResult(_SUCCESS, data, msg, c)
 }
 
 func HTTPFail(data interface{}, msg string, c *gin.Context) {
-	HttpResult(_FAIl, data, msg, c)
+	httpResult(_FAIl, data, msg, c)
 }

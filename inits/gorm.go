@@ -2,11 +2,13 @@ package inits
 
 import (
 	"fmt"
-	"galen-gvm/global"
-	"galen-gvm/model/system"
 	"os"
 	"strings"
 
+	"galen-gvm/global"
+	"galen-gvm/model/system"
+
+	"go.uber.org/zap"
 	"gorm.io/gorm"
 )
 
@@ -30,9 +32,10 @@ func RegisterTables() {
 	err := db.AutoMigrate(
 		system.SysApi{},
 		system.JwtBlacklist{},
+		system.SysUser{},
 	)
 	if err != nil {
-		fmt.Println("TODO")
+		global.GVA_LOG.Error("RegisterTables err:", zap.Error(err))
 		os.Exit(0)
 	}
 	fmt.Println("register table success")

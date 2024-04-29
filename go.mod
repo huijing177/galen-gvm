@@ -5,6 +5,7 @@ go 1.22.0
 require (
 	github.com/fsnotify/fsnotify v1.7.0
 	github.com/gin-gonic/gin v1.9.1
+	github.com/gofrs/uuid/v5 v5.1.0
 	github.com/redis/go-redis/v9 v9.5.1
 	github.com/songzhibin97/gkit v1.2.13
 	github.com/spf13/cast v1.6.0

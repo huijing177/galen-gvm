@@ -3,6 +3,7 @@ package api
 import (
 	"net/http"
 
+	"galen-gvm/api/base"
 	"galen-gvm/api/example"
 	"galen-gvm/api/system"
 
@@ -17,6 +18,8 @@ func Router() *gin.Engine {
 	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	router.GET("/ping", Ping)
 
+	baseRouter := router.Group("base")
+	base.BaseRouter(baseRouter)
 	systemRouter := router.Group("system")
 	system.SystemRouter(systemRouter)
 	exampleRouter := router.Group("example")

@@ -9,4 +9,5 @@ swag: swag.install
 	swag init
 
 run: swag
+	go mod tidy
 	go run .
