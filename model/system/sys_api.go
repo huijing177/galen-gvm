@@ -13,3 +13,15 @@ type SysApi struct {
 func (SysApi) TableName() string {
 	return "sys_apis"
 }
+
+func GetAllApis() ([]SysApi, error) {
+	var apis []SysApi
+	err := global.GVA_DB.Find(&apis).Error
+	return apis, err
+}
+
+func GetApiById(id int) (SysApi, error) {
+	var res SysApi
+	err := global.GVA_DB.First(&res, "id = ?", id).Error
+	return res, err
+}

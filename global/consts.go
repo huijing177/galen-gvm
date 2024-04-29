@@ -19,3 +19,9 @@ const (
 	ConfigReleaseFile = ""
 	ConfigTestFile    = ""
 )
+
+const (
+	GetSuccess = "获取成功"
+	GetFail    = "获取失败"
+	IDInvailed = "id 不合法"
+)

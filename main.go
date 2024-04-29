@@ -1,6 +1,7 @@
 package main
 
 import (
+	_ "galen-gvm/docs"
 	"galen-gvm/global"
 	"galen-gvm/inits"
 	"galen-gvm/internal"
@@ -21,7 +22,7 @@ import (
 // @license.url   http://www.apache.org/licenses/LICENSE-2.0.html
 
 // @host      localhost:8888
-// @BasePath  /api/v1
+// @BasePath  /
 
 // @securityDefinitions.basic  BasicAuth
 

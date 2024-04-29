@@ -3,6 +3,9 @@ package api
 import (
 	"net/http"
 
+	"galen-gvm/api/example"
+	"galen-gvm/api/system"
+
 	"github.com/gin-gonic/gin"
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
@@ -12,32 +15,25 @@ import (
 func Router() *gin.Engine {
 	router := gin.Default()
 	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
+	router.GET("/ping", Ping)
 
 	systemRouter := router.Group("system")
-	SystemRouter(systemRouter)
+	system.SystemRouter(systemRouter)
 	exampleRouter := router.Group("example")
-	ExampleRouter(exampleRouter)
+	example.ExampleRouter(exampleRouter)
 
 	return router
 }
 
-func SystemRouter(g *gin.RouterGroup) {
-	apiGroup := g.Group("api")
-	apiGroupV1 := apiGroup.Group("v1")
-	apiGroupV1.GET("/ping", Ping)
-}
-
-func ExampleRouter(g *gin.RouterGroup) {
-
-}
-
-// ShowAccount godoc
-// @Summary      Show an account
-// @Description  ping func
-// @Tags         accounts
-// @Accept       json
-// @Produce      json
-// @Router       /accounts/{id} [get]
+// Ping godoc
+//
+//	@Summary		pingSummary
+//	@Description	pingDescription
+//	@Tags			pingTags
+//	@Accept			json
+//	@Produce		json
+//	@Success		204	{object}	interface{}
+//	@Router			/ping [get]
 func Ping(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, "pong")
 }
