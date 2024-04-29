@@ -16,7 +16,6 @@ e2e/vela
 coverage.txt
 
 # Kubernetes Generated files - skip generated files, except for vendored files
-Makefile
 !vendor/**/zz_generated.*
 
 # editor and IDE paraphernalia
