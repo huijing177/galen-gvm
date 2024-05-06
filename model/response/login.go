@@ -1,4 +1,4 @@
 package response
 
-type LoginReponse struct {
+type LoginResponse struct {
 }
