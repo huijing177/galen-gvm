@@ -63,12 +63,15 @@ redis:
     - "172.21.0.2:7002"
 
 jwt:
+  signing-key: galensigning
   expires-time: 7d
+  buffer-time: 1d
+  issuer: galen
 
 # 验证码
 captcha:
   key-long: 6
   img-width: 240
   img-height: 80
-  open-captcha: 0 # 0代表一直开启，大于0代表限制次数
+  open-captcha: 3 # 0代表一直开启，大于0代表限制次数
   open-captcha-timeout: 3600 # open-captcha大于0时才生效

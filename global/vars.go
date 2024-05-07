@@ -18,3 +18,8 @@ var (
 	GVA_REDIS  *redis.Client
 	BlackCache local_cache.Cache
 )
+
+var (
+	DefaultJwtSigningKey = "galenjwtsigning"
+	DefaultJwtIssuer     = "galen"
+)
