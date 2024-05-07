@@ -8,6 +8,7 @@ require (
 	github.com/gofrs/uuid/v5 v5.1.0
 	github.com/golang-jwt/jwt/v5 v5.2.1
 	github.com/mojocn/base64Captcha v1.3.6
+	github.com/orcaman/concurrent-map/v2 v2.0.1
 	github.com/redis/go-redis/v9 v9.5.1
 	github.com/songzhibin97/gkit v1.2.13
 	github.com/spf13/cast v1.6.0
@@ -16,6 +17,7 @@ require (
 	github.com/swaggo/gin-swagger v1.6.0
 	github.com/swaggo/swag v1.16.3
 	go.uber.org/automaxprocs v1.5.3
+	go.uber.org/ratelimit v0.3.1
 	go.uber.org/zap v1.27.0
 	gorm.io/driver/mysql v1.5.6
 	gorm.io/gorm v1.25.9
@@ -25,6 +27,7 @@ require (
 	github.com/KyleBanks/depth v1.2.1 // indirect
 	github.com/PuerkitoBio/purell v1.1.1 // indirect
 	github.com/PuerkitoBio/urlesc v0.0.0-20170810143723-de5bf2ad4578 // indirect
+	github.com/benbjohnson/clock v1.3.0 // indirect
 	github.com/bytedance/sonic v1.9.1 // indirect
 	github.com/cespare/xxhash/v2 v2.2.0 // indirect
 	github.com/chenzhuoyu/base64x v0.0.0-20221115062448-fe3a3abad311 // indirect

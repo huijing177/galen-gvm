@@ -33,3 +33,6 @@ vendor/
 
 log/
 docs/
+
+# 测试生成的临时文件
+__debug_bin*
