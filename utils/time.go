@@ -10,7 +10,7 @@ import (
 // 1. 7d33m
 // 2. 1234567
 // 3. 33m
-func ParseExpiresTime(d string) (time.Duration, error) {
+func ParseDuration(d string) (time.Duration, error) {
 	d = strings.TrimSpace(d)
 	dr, err := time.ParseDuration(d)
 	if err == nil {

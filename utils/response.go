@@ -25,7 +25,7 @@ func httpResult(code int, data interface{}, msg string, c *gin.Context) {
 	})
 }
 
-func NoAuth(message string, c *gin.Context) {
+func HTTPNoAuth(message string, c *gin.Context) {
 	c.JSON(http.StatusUnauthorized, Response{
 		Code: _FAIl,
 		Data: nil,

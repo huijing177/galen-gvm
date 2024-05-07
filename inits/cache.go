@@ -10,7 +10,7 @@ import (
 )
 
 func Cache() local_cache.Cache {
-	expiresTime, err := utils.ParseExpiresTime(global.GVA_CONFIG.Jwt.ExpiresTime)
+	expiresTime, err := utils.ParseDuration(global.GVA_CONFIG.Jwt.ExpiresTime)
 	if err != nil {
 		global.GVA_LOG.Error("Cache err:", zap.Error(err))
 		global.GVA_LOG.Error("we will use default Jwt expires_time: 7day")

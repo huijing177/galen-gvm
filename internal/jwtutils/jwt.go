@@ -48,8 +48,8 @@ func NewJwt() *JWT {
 
 // 创建声明信息
 func (j *JWT) CreateClaims(user *system.SysUser) CustomClaims {
-	bt, _ := utils.ParseExpiresTime(global.GVA_CONFIG.Jwt.BufferTime)
-	et, _ := utils.ParseExpiresTime(global.GVA_CONFIG.Jwt.ExpiresTime)
+	bt, _ := utils.ParseDuration(global.GVA_CONFIG.Jwt.BufferTime)
+	et, _ := utils.ParseDuration(global.GVA_CONFIG.Jwt.ExpiresTime)
 	issuer := global.GVA_CONFIG.Jwt.Issuer
 	if issuer == "" {
 		issuer = global.DefaultJwtIssuer
