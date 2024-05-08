@@ -20,8 +20,8 @@ var (
 func IPLimit(ctx *gin.Context) {
 	once.Do(func() {
 		go func() {
-			// 每隔600秒，清理一次两个map，防止长时间运行后，内存占用太多
-			ticker := time.NewTicker(time.Second * 600)
+			// 每隔1800秒，清理一次两个map，防止长时间运行后，内存占用太多
+			ticker := time.NewTicker(time.Second * 1800)
 			for range ticker.C {
 				global.GVA_LOG.Info("开始清理IPLimitMap和IPOnline")
 				now := time.Now().Unix()

@@ -1,10 +1,13 @@
 package middleware
 
 import (
+	"bytes"
 	"encoding/json"
-	"galen-gvm/global"
+	"io"
 	"strings"
 	"time"
+
+	"galen-gvm/global"
 
 	"github.com/gin-gonic/gin"
 )
@@ -25,6 +28,8 @@ func Record(ctx *gin.Context) {
 	path := ctx.Request.URL.Path
 	query := ctx.Request.URL.RawQuery
 	body, _ := ctx.GetRawData()
+	// 将原body塞回去,gin中的body只能读取一次，如果不加这一行，只能使用ShouldBindBodyWith，而不能使用ShouldBindJSON
+	ctx.Request.Body = io.NopCloser(bytes.NewBuffer(body))
 
 	ctx.Next()
 	cost := time.Since(start)

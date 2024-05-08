@@ -8,6 +8,7 @@ import (
 	"galen-gvm/model/system"
 	"galen-gvm/utils"
 
+	"github.com/gin-gonic/gin"
 	"github.com/gofrs/uuid/v5"
 	"github.com/golang-jwt/jwt/v5"
 	"go.uber.org/zap"
@@ -96,4 +97,13 @@ func (j *JWT) ParseToken(tokenString string) (*CustomClaims, error) {
 func (j *JWT) CreateToken(claims CustomClaims) (string, error) {
 	t := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 	return t.SignedString(j.SigningKey)
+}
+
+func GetUserIdByCtx(ctx *gin.Context) uint {
+	if claims, exists := ctx.Get("claims"); !exists {
+		return 0
+	} else {
+		waitUse := claims.(*CustomClaims)
+		return waitUse.BaseClaims.ID
+	}
 }

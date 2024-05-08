@@ -7,4 +7,6 @@ import (
 func SystemRouter(g *gin.RouterGroup) {
 	apiGroup := g.Group("api")
 	ApiRouter(apiGroup)
+	userGroup := g.Group("user")
+	UserRouter(userGroup)
 }

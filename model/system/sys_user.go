@@ -1,9 +1,14 @@
 package system
 
 import (
+	"errors"
+
 	"galen-gvm/global"
+	"galen-gvm/utils"
 
 	"github.com/gofrs/uuid/v5"
+	"go.uber.org/zap"
+	"gorm.io/gorm"
 )
 
 type SysUser struct {
@@ -30,4 +35,38 @@ func GetUserbyUsername(name string) (SysUser, error) {
 	var user SysUser
 	err := global.GVA_DB.Where("username = ?", name).First(&user).Error
 	return user, err
+}
+
+func Register(u *SysUser) (*SysUser, error) {
+	var userTmp SysUser
+	err := global.GVA_DB.Where("username = ?", u.Username).First(&userTmp).Error
+	if err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			// 密码加密存储，1、防止监守自盗。2、防止数据信息泄露后，密码也被得知
+			u.Password = utils.BcryptHash(u.Password)
+			u.UUID = uuid.Must(uuid.NewV4())
+			// TODO zap.Any能否正常打印user信息
+			global.GVA_LOG.Info("Register user:", zap.Any("", u))
+			return u, global.GVA_DB.Create(&u).Error
+		}
+		global.GVA_LOG.Error("Register err:", zap.Error(err))
+		return nil, err
+	}
+	return nil, errors.New("用户名已存在")
+}
+
+func ChangePassword(u *SysUser, newPassword string) (*SysUser, error) {
+	var userTmp SysUser
+	err := global.GVA_DB.Where("id = ?", u.ID).First(&userTmp).Error
+	if err != nil {
+		global.GVA_LOG.Error("ChangePassword err:", zap.Error(err))
+		return nil, err
+	}
+	if utils.BcryptCheck(u.Password, userTmp.Password) {
+		global.GVA_LOG.Error("原密码错误", zap.Any("user", u))
+		return u, errors.New("原密码错误")
+	}
+	u.Password = utils.BcryptHash(newPassword)
+	global.GVA_LOG.Info("ChangePassword user:", zap.Any("user", u))
+	return u, global.GVA_DB.Save(&u).Error
 }

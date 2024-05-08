@@ -26,18 +26,18 @@ func BaseRouter(g *gin.RouterGroup) {
 	// 登陆等接口，不应该同时支持多个版本，不需要分出v1，v2
 	g.POST("/login", Login)
 	g.POST("/captcha", Captcha)
-
+	g.POST("/register", Register)
 }
 
 // Login
 // @Tags     Base
 // @Summary  用户登录
 // @Produce   application/json
-// @Param    data  body      request.Login                                             true  "用户名, 密码, 验证码"
-// @Success  200   {object}  utils.Response{data=response.LoginResponse,msg=string}  "返回包括用户信息,token,过期时间"
+// @Param    data  body      request.LoginReq                                             true  "用户名, 密码, 验证码"
+// @Success  200   {object}  utils.Response{data=response.LoginResp,msg=string}  "返回包括用户信息,token,过期时间"
 // @Router   /base/login [post]
 func Login(ctx *gin.Context) {
-	var login request.Login
+	var login request.LoginReq
 	err := ctx.ShouldBindJSON(&login)
 	if err != nil {
 		global.GVA_LOG.Error("Login bind err:", zap.Error(err))
@@ -91,7 +91,7 @@ func Login(ctx *gin.Context) {
 			utils.HTTPFail(nil, "账号不存在", ctx)
 			return
 		}
-		if login.Password != userInter.Password {
+		if utils.BcryptCheck(login.Password, userInter.Password) {
 			utils.HTTPFail(nil, "密码错误", ctx)
 			return
 		}
@@ -115,7 +115,7 @@ func genToken(ctx *gin.Context, user *system.SysUser) {
 		return
 	}
 	utils.SetToken(ctx, token, int(claims.RegisteredClaims.ExpiresAt.Unix()-time.Now().Unix()))
-	utils.HTTPOk(response.LoginResponse{
+	utils.HTTPOk(response.LoginResp{
 		User:      *user,
 		Token:     token,
 		ExpiresAt: claims.RegisteredClaims.ExpiresAt.Unix() * 1000,
@@ -126,7 +126,7 @@ func genToken(ctx *gin.Context, user *system.SysUser) {
 // @Tags     Base
 // @Summary  获取验证码
 // @Produce   application/json
-// @Success  200   {object}  utils.Response{data=response.CaptchaResponse,msg=string}  "返回包括是否开启验证码，以及验证码信息"
+// @Success  200   {object}  utils.Response{data=response.CaptchaResp,msg=string}  "返回包括是否开启验证码，以及验证码信息"
 // @Router   /base/captcha [post]
 func Captcha(ctx *gin.Context) {
 	// 不管是否开启，都需要回传给前端，并把是否开启也回传回去，让前端抉择
@@ -154,10 +154,45 @@ func Captcha(ctx *gin.Context) {
 		utils.HTTPFail(nil, "验证码获取失败", ctx)
 		return
 	}
-	utils.HTTPOk(response.CaptchaResponse{
+	utils.HTTPOk(response.CaptchaResp{
 		CaptchaId:     id,
 		PicPath:       b64s,
 		CaptchaLength: global.GVA_CONFIG.Captcha.KeyLong,
 		OpenCaptcha:   flag,
 	}, "验证码获取成功", ctx)
+}
+
+// Register
+// @Tags     Base
+// @Summary  注册用户
+// @Produce   application/json
+// @Param    data  body      request.RegisterReq                                             true  "用户名, 密码, 验证码等"
+// @Success  200   {object}  utils.Response{data=response.RegisterResp,msg=string}  "返回用户信息"
+// @Router   /base/register [post]
+func Register(ctx *gin.Context) {
+	var register request.RegisterReq
+	err := ctx.ShouldBindJSON(&register)
+	if err != nil {
+		global.GVA_LOG.Error("Register bind err:", zap.Error(err))
+		utils.HTTPFail(nil, err.Error(), ctx)
+		return
+	}
+	user := &system.SysUser{
+		Username:  register.Username,
+		Password:  register.Password,
+		NickName:  register.NickName,
+		HeaderImg: register.HeaderImg,
+		Phone:     register.Phone,
+		Email:     register.Email,
+		Enable:    0,
+	}
+	u, err := system.Register(user)
+	if err != nil {
+		global.GVA_LOG.Error("system.Register err:", zap.Error(err))
+		utils.HTTPFail(nil, "注册失败", ctx)
+		return
+	}
+	utils.HTTPOk(response.RegisterResp{
+		User: *u,
+	}, "注册成功", ctx)
 }

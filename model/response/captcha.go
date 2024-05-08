@@ -1,6 +1,6 @@
 package response
 
-type CaptchaResponse struct {
+type CaptchaResp struct {
 	CaptchaId     string `json:"captchaId"`
 	PicPath       string `json:"picPath"`
 	CaptchaLength int    `json:"captchaLength"`
